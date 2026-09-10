@@ -1,0 +1,8 @@
+{
+  "name": "im-just-a-dev",
+  "standard": "open-plugin",
+  "type": "agent-harness",
+  "skills": {
+    "directory": "skills"
+  }
+}
