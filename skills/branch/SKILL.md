@@ -7,7 +7,8 @@ description: Create a work branch from a chosen starting point. Use for /branch 
 
 ## Create
 
-1. Honor an explicit base or reuse the preceding `/git` base and commit. Use [git](../git/SKILL.md) if absent or a moving base needs synchronization. Preserve pinned commits and tags.
-2. Use the requested name or `codex/<task>`. "Create new" names the operation. Reuse this task's branch; for other collisions choose a fresh name or ask if the exact name is required.
-3. Create and check out from the resolved commit. Preserve related edits; use a worktree for unrelated work. Never replace existing branches or discard edits.
-4. Verify the base is an ancestor of the head. Pass checkout path, head, and PR base to `/pr`.
+Create and check out the work branch from the explicit base or preceding `/git` base commit. Use [git](../git/SKILL.md) to resolve an absent base or refresh a moving base when needed. Pinned commits/tags stay fixed.
+
+An explicit branch name wins; otherwise use `<harness>/<task>`. "Create new" selects the capability. Reuse this task's existing branch. Other name collisions require a fresh name or clarification when the exact name is required. Preserve related edits in the selected checkout; isolate unrelated work in a worktree. Never replace existing branches or discard edits.
+
+The resolved base commit must be an ancestor of the head. Pass checkout path, head branch, and retained PR base to `/pr`.

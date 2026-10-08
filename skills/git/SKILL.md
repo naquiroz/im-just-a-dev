@@ -7,8 +7,8 @@ description: Fetch and fast-forward a starting branch before new work. Use for /
 
 ## Sync remote
 
-1. Use the explicit or established base. Honor an explicit remote; otherwise prefer its upstream remote, `origin`, then the sole remote. Resolve a missing base from live remote HEAD. Use an upstream on that remote or its matching branch; resolve ambiguity. For a pinned commit/tag, fetch successfully and return the unchanged pin.
-2. Fetch the upstream explicitly and record its fetched commit. Stop on failure or a missing remote branch.
-3. Leave a base containing that commit unchanged. Otherwise create it if absent or fast-forward it. Use `git merge --ff-only --no-autostash <fetched-tip>` in a checked-out base's worktree. For an unchecked base, require ancestry and use `git update-ref` with the expected old tip.
-4. Preserve local commits and edits. Stop on divergence or obstructing edits. Synchronization never stashes, rewrites history, or pushes.
-5. Verify `git merge-base --is-ancestor <fetched-tip> <local-base>`. Report the base and commit. Carry source remote, remote base, and local base into chained operations.
+Sync the explicit or established base. Remote precedence is explicit selection, base upstream, `origin`, then the sole remote. Resolve an unspecified base from live remote HEAD. Use its upstream on that remote or the matching branch; ask if ambiguous.
+
+Freshness requires an explicit upstream fetch and its fetched commit. Fetch failure or a missing remote branch stops sync. Pinned commits/tags stay fixed after a successful remote fetch. Branch bases must contain the fetched commit. Existing containment needs no update; create an absent base from that commit. Updates are fast-forward only. A checked-out base uses `git merge --ff-only --no-autostash <fetched-tip>` in its worktree. An unchecked base uses `git update-ref` with the expected old tip after verifying that tip is an ancestor of the fetched commit.
+
+Preserve local commits and edits. Divergence or obstructing edits stops sync. Sync never stashes, rewrites history, or pushes. Verify containment with `git merge-base --is-ancestor <fetched-tip> <local-base>`. Report base and commit; retain source remote, remote base, local base, and commit for chained operations.
